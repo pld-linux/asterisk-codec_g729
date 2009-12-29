@@ -34,13 +34,17 @@ Release:	0.1
 License:	Proprietary
 Group:		Applications/System
 Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}.tar.gz
-# Source0-md5:	177828ca5ec0b7477883d81dbe74558f
+# NoSource0-md5:	177828ca5ec0b7477883d81dbe74558f
+NoSource:	0
 Source1:	%{dl_url}/x86-64/codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}.tar.gz
-# Source1-md5:	2e3f13ff76ac7925bf16be920cd71fd0
+# NoSource1-md5:	2e3f13ff76ac7925bf16be920cd71fd0
+NoSource:	1
 Source2:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-32/benchg729-%{bench_ver}-x86_32
-# Source2-md5:	428a69780df2bba0f17da061e13a3df3
+# NoSource2-md5:	428a69780df2bba0f17da061e13a3df3
+NoSource:	2
 Source3:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-64/benchg729-%{bench_ver}-x86_64
-# Source3-md5:	dc9a24b54d3a510e77e86773beb300ec
+# NoSource3-md5:	dc9a24b54d3a510e77e86773beb300ec
+NoSource:	3
 URL:		http://store.digium.com/productview.php?product_code=G729CODEC
 BuildRequires:	asterisk-devel
 Requires:	asterisk >= %{asterisk_ver}
