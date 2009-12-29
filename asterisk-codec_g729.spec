@@ -31,7 +31,7 @@ Summary:	Digium G.729 Software Codec for Asterisk
 Name:		asterisk-codec_g729
 Version:	3.1.4
 Release:	0.1
-License:	GPL v2
+License:	Proprietary
 Group:		Applications/System
 Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}.tar.gz
 # Source0-md5:	177828ca5ec0b7477883d81dbe74558f
