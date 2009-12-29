@@ -15,7 +15,7 @@
 # - pentium4m_32
 # - pentium_m_32
 # - prescott_32
-%define		x86_optim	generic_32
+%define		x86_32_optim	generic_32
 # Available x86_64 bit optimizations:
 # - core2_64
 # - generic_64
@@ -33,17 +33,24 @@ Version:	3.1.4
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_optim}.tar.gz
+Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}.tar.gz
 # Source0-md5:	177828ca5ec0b7477883d81dbe74558f
 Source1:	%{dl_url}/x86-64/codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}.tar.gz
 # Source1-md5:	2e3f13ff76ac7925bf16be920cd71fd0
-URL:		http://downloads.digium.com/pub/telephony/codec_g729/
+Source2:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-32/benchg729-%{bench_ver}-x86_32
+# Source2-md5:	428a69780df2bba0f17da061e13a3df3
+Source3:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-64/benchg729-%{bench_ver}-x86_64
+# Source3-md5:	dc9a24b54d3a510e77e86773beb300ec
+URL:		http://store.digium.com/productview.php?product_code=G729CODEC
 BuildRequires:	asterisk-devel
 Requires:	asterisk >= %{asterisk_ver}
 ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		moduledir	%{_libdir}/asterisk/modules
+
+# no debug symbols
+%define		_enable_debug_packages	0
 
 %description
 Digium offers a software implementation of G.729 that is compatible
@@ -59,19 +66,19 @@ Software Codec for Asterisk.
 
 %prep
 %ifarch %{ix86}
-%define	sno		0
-%define	optim	%{x86_optim}
+%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim} -b0
+install -p %{SOURCE2} benchg729
 %endif
 %ifarch %{x8664}
-%define	sno		1
-%define	optim	%{x86_64_optim}
+%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim} -b1
+install -p %{SOURCE3} benchg729
 %endif
-%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{optim} -b%{sno}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{moduledir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{moduledir}}
 install -p codec_g729a.so $RPM_BUILD_ROOT%{moduledir}
+install -p benchg729 $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -79,4 +86,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc LICENSE README
+%attr(755,root,root) %{_bindir}/benchg729
 %attr(755,root,root) %{moduledir}/codec_g729a.so
