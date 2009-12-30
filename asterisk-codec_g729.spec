@@ -18,6 +18,7 @@
 %define		x86_32_optim	generic
 # Available x86_64 bit optimizations:
 # - generic
+# - barcelona
 # - core2
 # - nocona
 # - opteron
