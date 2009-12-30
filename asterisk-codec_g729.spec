@@ -1,28 +1,35 @@
 # Available x86 optimizations:
-# - athlon_32
-# - athlon_xp_32
-# - barcelona_32
-# - c3_2_32
-# - c3_32
-# - core2_32
-# - generic_32
-# - i686_32
-# - k6_3_32
-# - nocona_32
-# - opteron_32
-# - opteron_sse3_32
-# - pentium3m_32
-# - pentium4m_32
-# - pentium_m_32
-# - prescott_32
-%define		x86_32_optim	generic_32
+# - generic
+# - athlon
+# - athlon_xp
+# - barcelona
+# - c3_2
+# - c3
+# - core2
+# - i686
+# - k6_3
+# - nocona
+# - opteron
+# - opteron_sse3
+# - pentium3m
+# - pentium4m
+# - pentium_m
+# - prescott
+%define		x86_32_optim	generic
 # Available x86_64 bit optimizations:
-# - core2_64
-# - generic_64
-# - nocona_64
-# - opteron_64
-# - opteron_sse3_64
-%define		x86_64_optim	generic_64
+# - generic
+# - core2
+# - nocona
+# - opteron
+# - opteron_sse3
+%define		x86_64_optim	barcelona
+
+%ifarch %{ix86}
+%define		optim %{x86_32_optim}
+%endif
+%ifarch %{x8664}
+%define		optim %{x86_64_optim}
+%endif
 
 %define		dl_url	http://downloads.digium.com/pub/telephony/codec_g729/asterisk-%{asterisk_ver}/
 %define		asterisk_ver	1.6.1
@@ -30,14 +37,14 @@
 Summary:	Digium G.729 Software Codec for Asterisk
 Name:		asterisk-codec_g729
 Version:	3.1.4
-Release:	0.1
+Release:	0.3
 License:	Proprietary
 Group:		Applications/System
-Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}.tar.gz
+Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}_32.tar.gz
 # NoSource0-md5:	177828ca5ec0b7477883d81dbe74558f
 NoSource:	0
-Source1:	%{dl_url}/x86-64/codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}.tar.gz
-# NoSource1-md5:	2e3f13ff76ac7925bf16be920cd71fd0
+Source1:	%{dl_url}/x86-64/codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}_64.tar.gz
+# NoSource1-md5:	491e093b5fc36a837d57cc165daa69e4
 NoSource:	1
 Source2:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-32/benchg729-%{bench_ver}-x86_32
 # NoSource2-md5:	428a69780df2bba0f17da061e13a3df3
@@ -68,13 +75,15 @@ http://store.digium.com/productview.php?product_code=G729CODEC
 Follow the instructions below to download and install the Digium G.729
 Software Codec for Asterisk.
 
+This package is built with '%{optim}' flavor.
+
 %prep
 %ifarch %{ix86}
-%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim} -b0
+%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}_32 -b0
 install -p %{SOURCE2} benchg729
 %endif
 %ifarch %{x8664}
-%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim} -b1
+%setup -qT -n codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}_64 -b1
 install -p %{SOURCE3} benchg729
 %endif
 
