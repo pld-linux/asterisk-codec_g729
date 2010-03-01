@@ -33,19 +33,19 @@
 %endif
 
 %define		dl_url	http://downloads.digium.com/pub/telephony/codec_g729/asterisk-%{asterisk_ver}/
-%define		asterisk_ver	1.6.1
+%define		asterisk_ver	1.6.2.0
 %define		bench_ver		1.0.7
 Summary:	Digium G.729 Software Codec for Asterisk
 Name:		asterisk-codec_g729
 Version:	3.1.4
-Release:	0.3
+Release:	1
 License:	Proprietary
 Group:		Applications/System
 Source0:	%{dl_url}/x86-32/codec_g729a-%{asterisk_ver}_%{version}-%{x86_32_optim}_32.tar.gz
-# NoSource0-md5:	177828ca5ec0b7477883d81dbe74558f
+# NoSource0-md5:	f5bbea87e2ffa97f8b7f1b59684085b4
 NoSource:	0
 Source1:	%{dl_url}/x86-64/codec_g729a-%{asterisk_ver}_%{version}-%{x86_64_optim}_64.tar.gz
-# NoSource1-md5:	491e093b5fc36a837d57cc165daa69e4
+# NoSource1-md5:	3bb68858e9db40769826de34b5b17a73
 NoSource:	1
 Source2:	http://downloads.digium.com/pub/telephony/codec_g729/benchg729/x86-32/benchg729-%{bench_ver}-x86_32
 # NoSource2-md5:	428a69780df2bba0f17da061e13a3df3
